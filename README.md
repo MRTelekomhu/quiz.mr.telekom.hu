@@ -1,1 +1,187 @@
-# quiz.mr.telekom.hu
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title style="color: purple;">Made by:MR.Telekom.hu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #quiz-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        label {
+            display: block;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1 style="color: purple;">Quiz</h1>
+        <h3 style="color: purple;">Made by:MR.Telekom.hu💙</h3>
+        <p id="question">Question goes here.</p>
+        <ul id="choices">
+            <li><label><input type="radio" name="choice" value="A"> Válasz A</label></li>
+            <li><label><input type="radio" name="choice" value="B"> Válasz B</label></li>
+            <li><label><input type="radio" name="choice" value="C"> Válasz C</label></li>
+            <li><label><input type="radio" name="choice" value="D"> Válasz D</label></li>
+            <li><label><input type="radio" name="choice" value="dzs"> Válasz dzs</label></li>
+        </ul>
+        <button onclick="checkAnswer()">Válasz beküldése</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Ki a leggnagyobb állat a világon.",
+                choices: ["Orrszarvú", "Tigris", "Ákos"],
+                correctAnswer: "Orrszarvú"
+            },
+            {
+                question: "Mennyi 2 + 2?",
+                choices: ["09", "12", "03"],
+                correctAnswer: "12"
+            },
+            {
+                question: "ki/kik a leggokosabb élőlény(ek)",
+                choices: ["Na ez 1 nagyon jó kérdés :)", "Lányok", "Nadzsem-Abed Karolina"],
+                correctAnswer: "Nadzsem-Abed Karolina"
+            },
+            {
+                question: "Mennyi ember él a világon?",
+                choices: ["Sok", "Több mint 1m", "7,888 milliárd (2025)", "több mint 5m"],
+                correctAnswer: "7,888 milliárd (2025)"
+            },
+            {
+                question: "Melyik bojgó van sajtból",
+                choices: ["Pfizer", "Nap", "London", "Hold"],
+                correctAnswer: "Hold"
+            },
+            {
+                question: "Ki a leggnagyobb állat a világon.",
+                choices: ["Orrszarvú", "Tigris", "Ákos"],
+                correctAnswer: "Ákos"
+            },
+            {
+                question: "Melyik a kakuk tojás?.",
+                choices: ["Sál", "Rövidnadrág", "Sapka", "Kabát"],
+                correctAnswer: "Rövidnadrág"
+            },
+            {
+                question: "Hány cm volt a legmagasabb ember a világon.",
+                choices: ["3,2m", "2,1m", "2,5m"],
+                correctAnswer: "2,5m"
+            },
+            {
+                question: "Hány cm a világ legkisebb embere.",
+                choices: ["65,36cm", "65,24cm", "72,102cm"],
+                correctAnswer: "Orrszarvú"
+            },
+            {
+                question: "Hány nap telt el két dátum között? (2023-10-06 - 2024-01-13)",
+                choices: ["68", "88", "125", "99"],
+                correctAnswer: "99"
+            },
+            {
+                question: "http://csak.a.telekom.ugye.vajon.hu/",
+                choices: ["itt már nincs választás"],
+                correctAnswer: "itt már nincs választás"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        const questionElement = document.getElementById("question");
+        const choicesElement = document.getElementById("choices");
+        const resultElement = document.getElementById("result");
+
+        function loadQuestion() {
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            choicesElement.innerHTML = "";
+            currentQuestion.choices.forEach(choice => {
+                const li = document.createElement("li");
+                li.innerHTML = `<label><input type="radio" name="choice" value="${choice}"> ${choice}</label>`;
+                choicesElement.appendChild(li);
+            });
+        }
+
+        function checkAnswer() {
+            const selectedChoice = document.querySelector('input[name="choice"]:checked');
+            if (!selectedChoice) {
+                alert("Kérlek válasz egy választ.");
+                return;
+            }
+
+            const userAnswer = selectedChoice.value;
+            const correctAnswer = quizData[currentQuestionIndex].correctAnswer;
+            if (userAnswer === correctAnswer) {
+                resultElement.textContent = "Helyes!";
+            } else {
+                resultElement.textContent = `Na még eszt se tudjátok?, a helyes válasz: ${correctAnswer}.`;
+            }
+
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                resultElement.textContent += ` Quiz ki töltve!`;
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
